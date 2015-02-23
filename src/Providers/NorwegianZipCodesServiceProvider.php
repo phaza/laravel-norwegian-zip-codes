@@ -33,6 +33,12 @@ class NorwegianZipCodesServiceProvider extends ServiceProvider {
 		$this->commands($this->command);
 	}
 
+	public function boot() {
+		$this->publishes([
+			realpath(__DIR__.'/../../resources/migrations') => base_path('database/migrations')
+		]);
+	}
+
 	public function provides()
 	{
 		return [
