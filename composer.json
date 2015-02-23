@@ -1,6 +1,6 @@
 {
     "name": "phaza/laravel-norwegian-zip-codes",
-    "description": "Laravel implementation of Norwegian zip codes. Includes an artisan command to update zip codes",
+    "description": "Laravel models for Norwegian zip codes, municipalities and counties. Includes an artisan command to update data from the official authority.",
     "require": {
 				"php": ">=5.5",
         "laravel/framework": "~5.0",
