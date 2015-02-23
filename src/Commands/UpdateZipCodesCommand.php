@@ -3,6 +3,9 @@
 use Goutte\Client;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Events\Dispatcher;
+use NorwegianZipCodes\Events\ZipCodesUpdated;
 use NorwegianZipCodes\Lib\RemoteZipCodeFileParser;
 use NorwegianZipCodes\Models\County;
 use NorwegianZipCodes\Models\Municipality;
@@ -30,13 +33,19 @@ class UpdateZipCodesCommand extends Command {
 	 */
 	protected $counties;
 
+	protected $added = 0;
+
+	protected $changed = 0;
+
 	/**
 	 * Execute the console command.
 	 *
 	 * @return mixed
 	 */
-	public function fire()
+	public function fire(Dispatcher $dispatcher)
 	{
+		$dispatcher->fire('zip_codes.update.starting');
+
 		$this->counties = County::all();
 		$url            = $this->getRemoteZipCodeFile();
 
@@ -46,8 +55,9 @@ class UpdateZipCodesCommand extends Command {
 
 			$municipality = $this->updateMunicipality($object->municipality_id, $object->municipality_name);
 			$this->updateZipCode($municipality, $object->id, $object->name);
-
 		});
+
+		$dispatcher->fire(new ZipCodesUpdated($this->added, $this->changed));
 	}
 
 	protected function getCounty($municipality_id) {
@@ -66,12 +76,21 @@ class UpdateZipCodesCommand extends Command {
 		if(is_null($municipality)) {
 			$municipality = new Municipality(['id' => $id, 'name' => $name]);
 			$county->municipalities()->save($municipality);
+			$this->added++;
 		}
 		else {
-			$municipality->update(['name' => $name]);
+			$municipality->setAttribute('name', $name);
+			$this->checkDirty($municipality);
+			$municipality->save();
 		}
 
 		return $municipality;
+	}
+
+	protected function checkDirty(Model $model) {
+		if($model->isDirty()) {
+			$this->changed++;
+		}
 	}
 
 	protected function updateZipCode(Municipality $municipality, $id, $name) {
@@ -81,9 +100,12 @@ class UpdateZipCodesCommand extends Command {
 		if(is_null($zipCode)) {
 			$zipCode = new ZipCode(['id' => $id, 'name' => $name]);
 			$municipality->zip_codes()->save($zipCode);
+			$this->added++;
 		}
 		else {
-			$zipCode->update(['name' => $name]);
+			$zipCode->setAttribute('name', $name);
+			$this->checkDirty($zipCode);
+			$zipCode->save();
 		}
 	}
 
