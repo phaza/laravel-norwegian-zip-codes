@@ -61,9 +61,6 @@ class UpdateZipCodeTest extends TestCase {
 		$this->artisan->call('zip_codes:update');
 		$this->assertnotEquals(0, ZipCode::count());
 		$this->assertnotEquals(0, Municipality::count());
-
-		var_dump(ZipCode::count());
-		var_dump(Municipality::count());
 	}
 
 	protected function getEnvironmentSetUp( $app ) {
