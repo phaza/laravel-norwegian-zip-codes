@@ -19,11 +19,15 @@ Add NorwegianZipCodes\Providers\NorwegianZipCodesServiceProvider in *config/app.
 	php artisan vendor:publish --provider="NorwegianZipCodes\Providers\NorwegianZipCodesServiceProvider"
 
 **Run migrations**  
-	
+
 	php artisan migrate
 
+**Seed the database**
+
+	php artisan db:seed --class="NorwegianZipCodeSeeds"
+
 **Populate the database**
-	
+
 	php artisan zip_codes:update
  
 **Start using the models**  
