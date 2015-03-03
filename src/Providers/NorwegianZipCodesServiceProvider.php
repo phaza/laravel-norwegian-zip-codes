@@ -35,7 +35,8 @@ class NorwegianZipCodesServiceProvider extends ServiceProvider {
 
 	public function boot() {
 		$this->publishes([
-			realpath(__DIR__.'/../../resources/migrations') => base_path('database/migrations')
+			realpath(__DIR__.'/../../resources/migrations') => base_path('database/migrations'),
+			realpath(__DIR__.'/../../resources/NorwegianZipCodeSeeds.php') => base_path('database/seeds')
 		]);
 	}
 
