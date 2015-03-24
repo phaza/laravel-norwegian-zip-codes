@@ -4,6 +4,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Municipality extends Model {
 
+	public $incrementing = false;
+
 	protected $fillable = [
 		'id',
 		'name'
