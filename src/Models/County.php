@@ -12,19 +12,19 @@ class County extends Model {
 	];
 
 	public static function find( $id, $columns = [ '*' ] ) {
-		return parent::find( static::pad_id($id), $columns );
+		return static::query()->find( static::pad_id( $id ), $columns );
 	}
 
 
-	public function setIdAttribute($value) {
-		$this->attributes['id'] = static::pad_id($value);
+	public function setIdAttribute( $value ) {
+		$this->attributes['id'] = static::pad_id( $value );
 	}
 
-	private static function pad_id($value) {
-		return str_pad($value, 2, '0', STR_PAD_LEFT);
+	private static function pad_id( $value ) {
+		return str_pad( $value, 2, '0', STR_PAD_LEFT );
 	}
 
 	public function municipalities() {
-		return $this->hasMany(Municipality::class);
+		return $this->hasMany( Municipality::class );
 	}
 }
