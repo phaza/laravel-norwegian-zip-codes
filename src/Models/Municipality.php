@@ -12,7 +12,9 @@ class Municipality extends Model {
 	];
 
 	public static function find( $id, $columns = [ '*' ] ) {
-		return static::query()->find( static::pad_id( $id ), $columns );
+		$id = is_array( $id ) ? array_map( 'static::pad_id', (array) $id ) : static::pad_id( $id );
+
+		return static::query()->find( $id, $columns );
 	}
 
 	private static function pad_id( $value ) {

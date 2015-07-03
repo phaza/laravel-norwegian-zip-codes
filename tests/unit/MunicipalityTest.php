@@ -21,4 +21,11 @@ class MunicipalityTest extends ZipCodeTestCase {
 		$this->assertInstanceOf(Municipality::class, Municipality::find(101));
 	}
 
+	public function testFindMunicipalityArray() {
+		$county = \NorwegianZipCodes\Models\County::create(['id' => 1, 'name' => 'TestCounty']);
+		$county->municipalities()->create(['id' => '0101', 'name' => 'Akershus']);
+		$county->municipalities()->create(['id' => '0102', 'name' => 'Østfold']);
+		$this->assertCount( 2, Municipality::find( [ '0101', '0102' ] ) );
+	}
+
 }

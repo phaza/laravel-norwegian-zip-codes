@@ -19,4 +19,10 @@ class CountyTest extends ZipCodeTestCase {
 		$this->assertInstanceOf(County::class, County::find(1));
 	}
 
+	public function testFindCountyArray() {
+		County::create(['id' => 1, 'name' => 'Akershus']);
+		County::create(['id' => 2, 'name' => 'Østfold']);
+		$this->assertCount( 2, County::find( [ 1, 2 ] ) );
+	}
+
 }
