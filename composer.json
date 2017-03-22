@@ -3,8 +3,7 @@
     "description": "Laravel models for Norwegian zip codes, municipalities and counties. Includes an artisan command to update data from the official authority.",
     "require": {
 				"php": ">=5.5",
-        "laravel/framework": "~5.1",
-        "fabpot/goutte": "~2.0"
+        "laravel/framework": "~5.1"
 
     },
     "require-dev": {
