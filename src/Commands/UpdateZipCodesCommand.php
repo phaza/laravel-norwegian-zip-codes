@@ -111,8 +111,8 @@ class UpdateZipCodesCommand extends Command {
 
 	protected function getRemoteZipCodeFile() {
 		$client = new Client();
-		$crawler = $client->request('GET', 'http://www.bring.no/hele-bring/produkter-og-tjenester/brev-og-postreklame/andre-tjenester/postnummertabeller');
-		$link = $crawler->filterXPath('//td[text() = "Postnummer i rekkefølge"]/following-sibling::td/a[contains(., "TAB")]');
+	        $crawler = $client->request('GET', 'http://www.bring.no/radgivning/sende-noe/adressetjenester/postnummer');
+   	        $link = $crawler->filterXPath('//td[text() = "Postnummer i rekkefølge"]/following-sibling::td/a');
 		$url = $link->attr('href');
 		return $url;
 	}
