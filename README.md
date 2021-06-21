@@ -1,4 +1,4 @@
-## This package was sponsored by [tjenestetorget.no][1] / [helsetjenester.no][2]
+## This package was sponsored by [tjenestetorget.no][1] / [TFinans.no][2]
 
 
 # What?
@@ -45,6 +45,6 @@ Add NorwegianZipCodes\Providers\NorwegianZipCodesServiceProvider in *config/app.
 
 All IDs for counties, municipalities and zip_codes are strings. This is because officially the IDs are zero padded, fixed size. (4 for zip codes and municipalities, 2 for counties)
 
-[1]: http://tjenestetorget.no
-[2]: http://helsetjenester.no
+[1]: https://tjenestetorget.no
+[2]: https://tfinans.no
 [ER]: https://cloud.githubusercontent.com/assets/4553/6326216/b502e9f4-bb4f-11e4-81be-a03e91e9cbc4.png
